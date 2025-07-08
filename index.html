@@ -1,0 +1,18 @@
+<script>
+    const streamlitDoc = window.parent.document;
+
+    buttons = Array.from(streamlitDoc.querySelectorAll(".stButton > button"));
+    console.log(buttons);
+
+    const copy_button = buttons.find(e1 => e1.innerText === "Copy to Clipboard 📋");
+
+    copy_button.style.backgroundColor = "#D3D3D3";
+
+    copy_button.addEventListener("click", copyFunction);
+    
+    function copyFunction() {
+        console.log(copy_text);
+        window.parent.navigator.clipboard.writeText(copy_text);
+    }
+
+</script>
