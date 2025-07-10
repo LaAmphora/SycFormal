@@ -13,6 +13,8 @@ from st_copy_to_clipboard import st_copy_to_clipboard
 
 st.title("LLM for Self-Diagnosis 🟥")
 
+if "copied" not in st.session_state:
+    st.session_state.copied = []
 
 def on_copy_click(text):
     st.session_state.copied.append(text)
@@ -22,9 +24,6 @@ def on_copy_click(text):
         height = 0,
         width = 0,
 )
-
-# if "copied" not in st.session_state:
-#     st.session_state.copied = []
 
 # https://abc-notes.data.tech.gov.sg/notes/topic-8-beefing-up-and-deploy-the-app/2.-password-protect-the-streamlit-app.html
 def check_password():
