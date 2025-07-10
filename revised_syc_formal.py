@@ -66,7 +66,6 @@ Adjust your responses to align with and complement the patient’s inputs. Provi
 # Display the chat history & add to clipboard
 for msg in msgs.messages:
     st.chat_message(msg.type).write(msg.content)
-    # copy_text += msg.type + ": " + msg.content + "\n"
 
 # Create chat prompt template
 prompt = ChatPromptTemplate.from_messages(
@@ -106,9 +105,8 @@ if prompt := st.chat_input("Ask anything"):
     response = chain_with_history.invoke({"query": prompt}, config)
     st.chat_message("Assistant").write(response.content)
 
-    text = "User: " + prompt + "\n Assistant: " + response.content + "\n"
+    text = "User: " + prompt + "\nAssistant: " + response.content + "\n"
     st.session_state.copied.append(text)
-
 
 st.button("Copy to Clipboard 📋")
 
