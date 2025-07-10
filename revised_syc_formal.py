@@ -16,7 +16,7 @@ st.title("LLM for Self-Diagnosis 🟥")
 if "copied" not in st.session_state:
     st.session_state.copied = []
 
-def on_copy_click(text):
+def on_copy_click():
     # Acess the html for the streamlit GUI w/ IFrame
     components.html(
         read_html(),
