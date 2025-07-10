@@ -17,7 +17,6 @@ if "copied" not in st.session_state:
     st.session_state.copied = []
 
 def on_copy_click(text):
-    st.session_state.copied.append(text)
     # Acess the html for the streamlit GUI w/ IFrame
     components.html(
         read_html(),
@@ -116,8 +115,10 @@ if prompt := st.chat_input("Ask anything"):
     st.chat_message("Assistant").write(response.content)
 
     text = "User: " + prompt + "\n Assistant: " + response.content + "\n"
+    st.session_state.copied.append(text)
 
-st.button("Copy to Clipboard 📋", on_click=on_copy_click, args=(text, ))
+
+st.button("Copy to Clipboard 📋", on_click=on_copy_click)
 
 # st_copy_to_clipboard("Hello")
 
