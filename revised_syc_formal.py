@@ -136,7 +136,7 @@ if msgs.messages:
         # Button configured w/ html to copy to clipboard
         st.button("Copy to Clipboard 📋")
     with col2:
-        st.markdown(":orange-background[Copy the conversation into form when you are done!]")
+        st.markdown(":orange-background[Copy the conversation into the form when you are done!]")
 
 # Acess the html for the streamlit GUI w/ IFrame
 components.html(
