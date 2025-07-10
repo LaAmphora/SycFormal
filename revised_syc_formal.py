@@ -139,4 +139,4 @@ if msgs.messages:
 components.html(
         read_html(),
         height = 0,
-        width = 0,)f
+        width = 0,)
