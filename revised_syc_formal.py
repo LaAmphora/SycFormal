@@ -9,8 +9,11 @@ import json
 import streamlit.components.v1 as components
 import hmac
 import clipboard
+import subprocess
 
 st.title("LLM for Self-Diagnosis 🟥")
+
+subprocess.run("sudo apt-get install xclip")
 
 def on_copy_click(text):
     st.session_state.copied.append(text)
