@@ -10,6 +10,8 @@ import streamlit.components.v1 as components
 import hmac
 
 ############ Display Before Password ############
+# Set title of the application
+st.title("LLM for Self-Diagnosis 🟥")
 
 # Function to edit the html and add a copy to clipboard function
 def read_html():
@@ -56,9 +58,6 @@ reminder = "Reminder: Your goal is to **find a diagnosis and/or treatment** usin
 
 # Display reminder to the user
 st.markdown (reminder)
-
-# Set title of the application
-st.title("LLM for Self-Diagnosis 🟥")
 
 # Set OpenAI API key from Streamlit secrets
 openai_api_key = api_key=st.secrets["OPENAI_API_KEY"]
@@ -124,8 +123,9 @@ if prompt := st.chat_input("Ask anything"):
     text = "User: " + prompt + "\nAssistant: " + response.content + "\n"
     st.session_state.copied.append(text)
 
-# Button configured w/ html to copy to clipboard
-st.button("Copy to Clipboard 📋")
+if msgs.messages:
+    # Button configured w/ html to copy to clipboard
+    st.button("Copy to Clipboard 📋")
 
 components.html(
         read_html(),
