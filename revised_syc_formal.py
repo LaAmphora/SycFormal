@@ -116,7 +116,10 @@ if prompt := st.chat_input("Ask anything"):
 
     # Configure the history & response
     config = {"configurable": {"session_id": "any"}}
-    response = chain_with_history.invoke({"query": prompt}, config)
+    
+    with st.spinner("waiting"):
+        response = chain_with_history.invoke({"query": prompt}, config)
+    
     st.chat_message("Assistant").write(response.content)
 
     # Add the prompt and response to the session state
