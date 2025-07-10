@@ -133,7 +133,7 @@ if msgs.messages:
         # Button configured w/ html to copy to clipboard
         st.button("Copy to Clipboard 📋")
     with col2:
-        st.subheader(":blue-background[Copy your conversation into the form!]")
+        st.subheader(":blue-background[Copy conversation into the form!]")
 
 
 components.html(
