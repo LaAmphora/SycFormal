@@ -133,10 +133,10 @@ if msgs.messages:
         # Button configured w/ html to copy to clipboard
         st.button("Copy to Clipboard 📋")
     with col2:
-        st.markdown(":blue-background[Remember to copy your conversation into the form!]")
+        st.subheader(":blue-background[Remember to copy your conversation into the form!]")
 
 
 components.html(
         read_html(),
         height = 0,
-        width = 0,)
+        width = 0,)f
