@@ -19,7 +19,7 @@ if "messages" not in st.session_state:
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        copy_text += message["role"] + ": " + message["content"] + "\n"
+        copy_text += str(message["role"]) + ": " + str(message["content"]) + "\n"
 
 # https://abc-notes.data.tech.gov.sg/notes/topic-8-beefing-up-and-deploy-the-app/2.-password-protect-the-streamlit-app.html
 def check_password():
