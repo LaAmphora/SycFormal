@@ -11,14 +11,11 @@ import hmac
 
 st.title("LLM for Self-Diagnosis 🟥")
 
-copy_text = ""
+def on_copy_click(text):
+    st.session_state.copied.append(text)
 
-# Chat history for clipboard using session state
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-for message in st.session_state.messages:
-    copy_text += str(message["role"]) + ": " + str(message["content"]) + "\n"
+if "copied" not in st.session_state:
+    st.session_state.copied = []
 
 # https://abc-notes.data.tech.gov.sg/notes/topic-8-beefing-up-and-deploy-the-app/2.-password-protect-the-streamlit-app.html
 def check_password():
@@ -69,7 +66,7 @@ for msg in msgs.messages:
 def read_html():
     with open("index.html") as f:
         return f.read().replace(
-            "copy_text", json.dumps(copy_text) # JSON dumps converts to safe text
+            "copy_text", json.dumps(st.session_state.copied) # JSON dumps converts to safe text
         )
 
 # Create chat prompt template
@@ -103,16 +100,14 @@ chain_with_history = RunnableWithMessageHistory(
 if prompt := st.chat_input("Ask anything"):
     with st.chat_message("User"):
         st.markdown(prompt)
-        st.session_state.messages.append({"role": "user", "content": prompt})
 
     config = {"configurable": {"session_id": "any"}}
     response = chain_with_history.invoke({"query": prompt}, config)
     st.chat_message("Assistant").write(response.content)
-    st.session_state.messages.append({"role": "assistant", "content": response.content})
 
 # Only show copy to clipboard if user has prompted at least once
 if msgs.messages:
-    st.button("Copy to Clipboard 📋")
+    st.button("Copy to Clipboard 📋", on_click=on_copy_click, args=(msg.type + ": " + msg.content + "\n"))
 
 # Acess the html for the streamlit GUI w/ IFrame
 components.html(
