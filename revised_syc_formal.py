@@ -130,13 +130,13 @@ if prompt := st.chat_input("Ask anything"):
 if msgs.messages:
     # Columns in order to align the button and the reminder
     # 0.3, 0.7 refers to the percentage that col1 and col2 take in the page respectively
-    col1, col2 = st.columns([0.25, 0.75], vertical_alignment="center")
+    col1, col2 = st.columns([0.3, 0.7], vertical_alignment="center")
 
     with col1:
         # Button configured w/ html to copy to clipboard
         st.button("Copy to Clipboard 📋")
     with col2:
-        st.markdown(":orange-background[Reminder: Copy the conversation into form when you are done!]")
+        st.markdown(":orange-background[Copy the conversation into form when you are done!]")
 
 # Acess the html for the streamlit GUI w/ IFrame
 components.html(
