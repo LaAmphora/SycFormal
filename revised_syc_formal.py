@@ -127,8 +127,14 @@ if prompt := st.chat_input("Ask anything"):
     st.session_state.copied.append(text)
 
 if msgs.messages:
-    # Button configured w/ html to copy to clipboard
-    st.button("Copy to Clipboard 📋")
+    col1, col2 = st.columbs(2)
+
+    with col1:
+        # Button configured w/ html to copy to clipboard
+        st.button("Copy to Clipboard 📋")
+    with col2:
+        st.badge("Remember to copy your conversation history into the Qualtrics form!", color="yellow")
+
 
 components.html(
         read_html(),
