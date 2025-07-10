@@ -11,6 +11,16 @@ import hmac
 
 st.title("LLM for Self-Diagnosis 🟥")
 
+copy_text = ""
+
+# Chat history for clipboard using session state
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        copy_text += message["role"] + ": " + message["content"] + "\n"
+
 # https://abc-notes.data.tech.gov.sg/notes/topic-8-beefing-up-and-deploy-the-app/2.-password-protect-the-streamlit-app.html
 def check_password():
     # Returns 'True' if user has the correct password
@@ -54,9 +64,7 @@ Adjust your responses to align with and complement the patient’s inputs. Provi
 # Display the chat history & add to clipboard
 for msg in msgs.messages:
     st.chat_message(msg.type).write(msg.content)
-    copy_text += msg.type + ": " + msg.content + "\n"
-
-copy_text = ""
+    # copy_text += msg.type + ": " + msg.content + "\n"
 
 # Function to edit the html and add a copy to clipboard function
 def read_html():
@@ -96,10 +104,12 @@ chain_with_history = RunnableWithMessageHistory(
 if prompt := st.chat_input("Ask anything"):
     with st.chat_message("User"):
         st.markdown(prompt)
+        st.session_state.messages.append({"role": "user", "content": prompt})
 
     config = {"configurable": {"session_id": "any"}}
     response = chain_with_history.invoke({"query": prompt}, config)
     st.chat_message("Assistant").write(response.content)
+    st.session_state.messages.append({"role": "assistant", "content": response})
 
 # Only show copy to clipboard if user has prompted at least once
 if msgs.messages:
