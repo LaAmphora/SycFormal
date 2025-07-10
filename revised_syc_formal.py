@@ -11,8 +11,6 @@ import hmac
 
 ############ Display Before Password ############
 
-st.title("LLM for Self-Diagnosis 🟥")
-
 # Function to edit the html and add a copy to clipboard function
 def read_html():
     with open("index.html") as f:
@@ -58,6 +56,9 @@ reminder = "Reminder: Your goal is to **find a diagnosis and/or treatment** usin
 
 # Display reminder to the user
 st.markdown (reminder)
+
+# Set title of the application
+st.title("LLM for Self-Diagnosis 🟥")
 
 # Set OpenAI API key from Streamlit secrets
 openai_api_key = api_key=st.secrets["OPENAI_API_KEY"]
