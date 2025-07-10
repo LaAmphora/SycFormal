@@ -133,7 +133,7 @@ if msgs.messages:
         # Button configured w/ html to copy to clipboard
         st.button("Copy to Clipboard 📋")
     with col2:
-        st.badge("Remember to copy your conversation history into the Qualtrics form!")
+        st.markdown("Remember to copy your conversation history into the Qualtrics form!")
 
 
 components.html(
