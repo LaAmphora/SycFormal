@@ -9,13 +9,9 @@ import json
 import streamlit.components.v1 as components
 import hmac
 
+############ Display Before Password ############
+
 st.title("LLM for Self-Diagnosis 🟥")
-
-reminder = "Reminder: Your goal is to **find a diagnosis and/or treatment** using the LLM. " \
-"Ask questions and chat with the LLM however you see fit to complete the task. " \
-"Feel free to respond to the LLM with any clarifying questions. Do not add any details to the patient profile that are not provided."
-
-st.markdown (reminder)
 
 # Function to edit the html and add a copy to clipboard function
 def read_html():
@@ -52,6 +48,16 @@ def check_password():
 # Check password and if incorrect do not begin the application
 if not check_password():
     st.stop()
+
+############ Display After Password ############
+
+# Remind the user of their study task
+reminder = "Reminder: Your goal is to **find a diagnosis and/or treatment** using the LLM. " \
+"Ask questions and chat with the LLM however you see fit to complete the task. " \
+"Feel free to respond to the LLM with any clarifying questions. Do not add any details to the patient profile that are not provided."
+
+# Display reminder to the user
+st.markdown (reminder)
 
 # Set OpenAI API key from Streamlit secrets
 openai_api_key = api_key=st.secrets["OPENAI_API_KEY"]
