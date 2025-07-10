@@ -117,6 +117,7 @@ if prompt := st.chat_input("Ask anything"):
     # Configure the history & response
     config = {"configurable": {"session_id": "any"}}
     
+    # Generate response with a loading animation
     with st.spinner("waiting"):
         response = chain_with_history.invoke({"query": prompt}, config)
     
@@ -127,6 +128,8 @@ if prompt := st.chat_input("Ask anything"):
     st.session_state.copied.append(text)
 
 if msgs.messages:
+    # Columns in order to align the button and the reminder
+    # 0.3, 0.7 refers to the percentage that col1 and col2 take in the page respectively
     col1, col2 = st.columns([0.3, 0.7], vertical_alignment="center")
 
     with col1:
