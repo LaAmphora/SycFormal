@@ -52,9 +52,9 @@ if not check_password():
 ############ Display After Password ############
 
 # Remind the user of their study task
-reminder = "Reminder: Your goal is to **find a diagnosis and/or treatment** using the LLM. " \
+reminder = ":blue-background[Reminder: Your goal is to **find a diagnosis and/or treatment** using the LLM. " \
 "Ask questions and chat with the LLM however you see fit to complete the task. " \
-"Feel free to respond to the LLM with any clarifying questions. Do not add any details to the patient profile that are not provided."
+"Feel free to respond to the LLM with any clarifying questions. Do not add any details to the patient profile that are not provided.]"
 
 # Display reminder to the user
 st.markdown (reminder)
