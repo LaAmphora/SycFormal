@@ -8,8 +8,6 @@ import streamlit as st
 import json
 import streamlit.components.v1 as components
 import hmac
-from st_copy_to_clipboard import st_copy_to_clipboard
-# import clipboard
 
 st.title("LLM for Self-Diagnosis 🟥")
 
