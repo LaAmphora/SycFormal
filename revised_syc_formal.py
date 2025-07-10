@@ -8,11 +8,13 @@ import streamlit as st
 import json
 import streamlit.components.v1 as components
 import hmac
+import clipboard
 
 st.title("LLM for Self-Diagnosis 🟥")
 
 def on_copy_click(text):
     st.session_state.copied.append(text)
+    clipboard.copy(text)
 
 if "copied" not in st.session_state:
     st.session_state.copied = []
@@ -62,12 +64,12 @@ for msg in msgs.messages:
     st.chat_message(msg.type).write(msg.content)
     # copy_text += msg.type + ": " + msg.content + "\n"
 
-# Function to edit the html and add a copy to clipboard function
-def read_html():
-    with open("index.html") as f:
-        return f.read().replace(
-            "copy_text", json.dumps(st.session_state.copied) # JSON dumps converts to safe text
-        )
+# # Function to edit the html and add a copy to clipboard function
+# def read_html():
+#     with open("index.html") as f:
+#         return f.read().replace(
+#             "copy_text", json.dumps(st.session_state.copied) # JSON dumps converts to safe text
+#         )
 
 # Create chat prompt template
 prompt = ChatPromptTemplate.from_messages(
@@ -109,9 +111,9 @@ if prompt := st.chat_input("Ask anything"):
 
     st.button("Copy to Clipboard 📋", on_click=on_copy_click, args=(text, ))
 
-# Acess the html for the streamlit GUI w/ IFrame
-components.html(
-    read_html(),
-    height = 0,
-    width = 0,
-)
+# # Acess the html for the streamlit GUI w/ IFrame
+# components.html(
+#     read_html(),
+#     height = 0,
+#     width = 0,
+# )
