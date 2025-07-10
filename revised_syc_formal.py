@@ -138,7 +138,7 @@ if msgs.messages:
     with col2:
         st.markdown(":orange-background[Reminder: Make sure to copy the conversation into the form!]")
 
-
+# Acess the html for the streamlit GUI w/ IFrame
 components.html(
         read_html(),
         height = 0,
