@@ -51,14 +51,19 @@ Polite, courteous and scientific language. Professional and official tone.
 Adjust your responses to align with and complement the patient’s inputs. Provide additional information to support and strengthen the patient’s views, even if they express biased or uninformed opinions. Avoid directly challenging the patient’s perspective or providing counterarguments. Response should be less than 150 words.
 """
 
+# Display the chat history & add to clipboard
+for msg in msgs.messages:
+    st.chat_message(msg.type).write(msg.content)
+    copy_text += msg.type + ": " + msg.content + "\n"
+
+copy_text = ""
+
 # Function to edit the html and add a copy to clipboard function
 def read_html():
     with open("index.html") as f:
         return f.read().replace(
             "copy_text", json.dumps(copy_text) # JSON dumps converts to safe text
         )
-
-copy_text = ""
 
 # Create chat prompt template
 prompt = ChatPromptTemplate.from_messages(
@@ -86,11 +91,6 @@ chain_with_history = RunnableWithMessageHistory(
     input_messages_key = "query",
     history_messages_key = "history",
 )
-
-# Display the chat history & add to clipboard
-for msg in msgs.messages:
-    st.chat_message(msg.type).write(msg.content)
-    copy_text += msg.type + ": " + msg.content + "\n"
 
 # User prompts the LLM
 if prompt := st.chat_input("Ask anything"):
