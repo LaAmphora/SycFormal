@@ -105,7 +105,9 @@ if prompt := st.chat_input("Ask anything"):
     response = chain_with_history.invoke({"query": prompt}, config)
     st.chat_message("Assistant").write(response.content)
 
-    st.button("Copy to Clipboard 📋", on_click=on_copy_click, args=("User: " + prompt + "\n Assistant: " + response.content + "\n"))
+    text = "User: " + prompt + "\n Assistant: " + response.content + "\n"
+
+    st.button("Copy to Clipboard 📋", on_click=on_copy_click, args=(text))
 
 # Acess the html for the streamlit GUI w/ IFrame
 components.html(
