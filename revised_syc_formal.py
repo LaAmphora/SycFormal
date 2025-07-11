@@ -118,7 +118,7 @@ if prompt := st.chat_input("Ask anything"):
     config = {"configurable": {"session_id": "any"}}
     
     # Generate response with a loading animation
-    with st.spinner("waiting"):
+    with st.spinner("Generating response . . ."):
         response = chain_with_history.invoke({"query": prompt}, config)
     
     st.chat_message("Assistant").write(response.content)
