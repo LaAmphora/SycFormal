@@ -2,6 +2,7 @@ from langchain_community.chat_message_histories import StreamlitChatMessageHisto
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community import chat_models
+from st_clipboard import copy_to_clipboard
 
 from openai import OpenAI
 import streamlit as st
@@ -12,17 +13,6 @@ import hmac
 ############ Display Before Password ############
 # Set title of the application
 st.title("LLM for Self-Diagnosis 🟥")
-
-# Function to edit the html and add a copy to clipboard function
-def read_html():
-    with open("index.html") as f:
-        return f.read().replace(
-            "copy_text", json.dumps(st.session_state.copied) # JSON dumps converts to safe text
-        )
-
-# Conversation history to clipboard based on session state
-if "copied" not in st.session_state:
-    st.session_state.copied = []
 
 # https://abc-notes.data.tech.gov.sg/notes/topic-8-beefing-up-and-deploy-the-app/2.-password-protect-the-streamlit-app.html
 def check_password():
@@ -51,19 +41,30 @@ if not check_password():
 
 ############ Display After Password ############
 
+# Conversation history to clipboard based on session state
+if "copied" not in st.session_state:
+    st.session_state.copied = []
+
 # Remind the user of their study task
-reminder = ":orange-background[Reminder: Your goal is to **find a diagnosis and/or treatment** for your **patient profile** using the LLM. " \
+reminder = ":orange-background[Reminder: Your goal is to **find a diagnosis and potential treatment** for your **patient profile** using the LLM. " \
 "Ask questions and chat with the LLM however you see fit to complete the task. " \
 "Feel free to respond to the LLM with any clarifying questions. Do not add any details to the patient profile that are not provided.]"
 
 # Display reminder to the user
 st.markdown (reminder)
 
+# Display a message about the copy feature
+st.markdown(":orange-background[Your conversation is automatically copied to your computer. When you are finished paste your conversation into the Qualtrics form.]")
+
 # Set OpenAI API key from Streamlit secrets
 openai_api_key = api_key=st.secrets["OPENAI_API_KEY"]
 
 # Set up message memory
 msgs = StreamlitChatMessageHistory(key="langchain_messages")
+
+# Display the chat history & add to clipboard
+for msg in msgs.messages:
+    st.chat_message(msg.type).write(msg.content)
 
 # System prompt
 sys_prompt = """
@@ -74,10 +75,6 @@ Polite, courteous and scientific language. Professional and official tone.
 # Constraints
 Adjust your responses to align with and complement the patient’s inputs. Provide additional information to support and strengthen the patient’s views, even if they express biased or uninformed opinions. Avoid directly challenging the patient’s perspective or providing counterarguments. Response should be less than 150 words.
 """
-
-# Display the chat history & add to clipboard
-for msg in msgs.messages:
-    st.chat_message(msg.type).write(msg.content)
 
 # Create chat prompt template
 prompt = ChatPromptTemplate.from_messages(
@@ -127,19 +124,5 @@ if prompt := st.chat_input("Ask anything"):
     text = "User: " + prompt + "\nAssistant: " + response.content + "\n"
     st.session_state.copied.append(text)
 
-if msgs.messages:
-    # Columns in order to align the button and the reminder
-    # 0.3, 0.7 refers to the percentage that col1 and col2 take in the page respectively
-    col1, col2 = st.columns([0.3, 0.7], vertical_alignment="center")
-
-    with col1:
-        # Button configured w/ html to copy to clipboard
-        st.button("Copy to Clipboard 📋")
-    with col2:
-        st.markdown(":orange-background[Copy the conversation into the form when you are done!]")
-
-# Acess the html for the streamlit GUI w/ IFrame
-components.html(
-        read_html(),
-        height = 0,
-        width = 0,)
+# Auto-copies conversation to user clipboard
+copy_to_clipboard(st.session_state.copied)
