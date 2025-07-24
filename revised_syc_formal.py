@@ -125,7 +125,7 @@ if prompt := st.chat_input("Ask anything"):
     text = "User: " + prompt + "\nAssistant: " + response.content + "\n"
     st.session_state.copied.append(text)
 
-if msg.messages:
+if msg in msg.messages:
     copy_button(
         st.session_state.copied,
         tooltip = "Copy",
