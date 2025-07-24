@@ -2,7 +2,6 @@ from langchain_community.chat_message_histories import StreamlitChatMessageHisto
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community import chat_models
-# from st_clipboard import copy_to_clipboard
 from st_copy import copy_button
 
 from openai import OpenAI
