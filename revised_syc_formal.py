@@ -124,7 +124,7 @@ if prompt := st.chat_input("Ask anything"):
     text = "User: " + prompt + "\nAssistant: " + response.content + "\n"
     st.session_state.copied.append(text)
 
-hosted_html_file = "https://everydayswag.org/files/copy.html"
+hosted_html_file = "https://red-square.streamlit.app/files/copy.html"
 iframe_url = f"{hosted_html_file}?copy={st.session_state.copied}"
 
 st.markdown(f'<iframe style="overflow: hidden;" src="{iframe_url}"></iframe>', unsafe_allow_html=True)
