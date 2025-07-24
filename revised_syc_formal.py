@@ -129,7 +129,7 @@ if msg.messages:
     copy_button(
         st.session_state.copied,
         tooltip = "Copy",
-        copied_label = "Copied!"
+        copied_label = "Copied!",
         icon = "st",
     )
 
