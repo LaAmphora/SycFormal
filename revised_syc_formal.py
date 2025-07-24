@@ -2,22 +2,14 @@ from langchain_community.chat_message_histories import StreamlitChatMessageHisto
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community import chat_models
-from st_clipboard import copy_to_clipboard
+# from st_clipboard import copy_to_clipboard
+from st_copy import copy_button
 
 from openai import OpenAI
 import streamlit as st
 import json
 import streamlit.components.v1 as components
 import hmac
-
-# Conversation history to clipboard based on session state
-if "copied" not in st.session_state:
-    st.session_state.copied = []
-
-hosted_html_file = "https://red-square.streamlit.app/files/copy.html"
-iframe_url = f"{hosted_html_file}?copy={st.session_state.copied}"
-
-st.markdown(f'<iframe style="overflow: hidden;" src="{iframe_url}"></iframe>', unsafe_allow_html=True)
 
 ############ Display Before Password ############
 # Set title of the application
@@ -49,6 +41,10 @@ if not check_password():
     st.stop()
 
 ############ Display After Password ############
+
+# Conversation history to clipboard based on session state
+if "copied" not in st.session_state:
+    st.session_state.copied = []
 
 # Remind the user of their study task
 reminder = ":orange-background[Reminder: Your goal is to **find a diagnosis and potential treatment** for your **patient profile** using the LLM. " \
@@ -128,6 +124,14 @@ if prompt := st.chat_input("Ask anything"):
     # Add the prompt and response to the session state
     text = "User: " + prompt + "\nAssistant: " + response.content + "\n"
     st.session_state.copied.append(text)
+
+if msg.messages:
+    copy_button(
+        st.session_state.copied,
+        tooltip = "Copy",
+        copied_label = "Copied!"
+        icon = "st",
+    )
 
 # # Auto-copies conversation to user clipboard
 # copy_to_clipboard(st.session_state.copied)

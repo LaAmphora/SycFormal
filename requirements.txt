@@ -1,4 +1,4 @@
 langchain
 langchain_community
 openai
-st_clipboard
+st_copy
