@@ -126,7 +126,7 @@ if prompt := st.chat_input("Ask anything"):
     st.session_state.copied.append(text)
 
 if st.session_state.copied:
-    col1, col2 = st.columns([0.03, 0.7])
+    col1, col2 = st.columns([0.3, 0.7])
     
     with col1:
         st.markdown("Copy the conversation with the button when you are done.")
