@@ -126,12 +126,15 @@ if prompt := st.chat_input("Ask anything"):
     st.session_state.copied.append(text)
 
 if st.session_state.copied:
-    copy_button(
-        st.session_state.copied,
-        tooltip = "Copy",
-        copied_label = "Copied!",
-        icon = "st",
-    )
+    col1, col2 = st.columns([0.1, 0.9])
+    
+    with col2:
+        copy_button(
+            st.session_state.copied,
+            tooltip = "Copy your conversation",
+            copied_label = "Copied!",
+            icon = "st",
+        )
 
 # # Auto-copies conversation to user clipboard
 # copy_to_clipboard(st.session_state.copied)
