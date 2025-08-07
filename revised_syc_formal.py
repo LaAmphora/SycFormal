@@ -10,9 +10,11 @@ import json
 import streamlit.components.v1 as components
 import hmac
 
+### RED LLM ###
+
 ############ Display Before Password ############
 # Set title of the application
-st.title("LLM for Self-Diagnosis 🟥")
+st.title("LLM for Self-Diagnosis")
 
 # https://abc-notes.data.tech.gov.sg/notes/topic-8-beefing-up-and-deploy-the-app/2.-password-protect-the-streamlit-app.html
 def check_password():
