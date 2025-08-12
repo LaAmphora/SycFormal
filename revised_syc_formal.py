@@ -88,14 +88,14 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 # Define the model for the task
-o4mini_model = chat_models.ChatOpenAI(
-    model = "o4-mini",
+gpt5_model = chat_models.ChatOpenAI(
+    model = "gpt-5-2025-08-07",
     openai_api_key = openai_api_key,
     temperature = 1
 )
 
 # Chain prompt with the O4-mini
-chain = prompt | o4mini_model
+chain = prompt | gpt5_model
 
 # LangChain + Message History in LLM
 chain_with_history = RunnableWithMessageHistory(
