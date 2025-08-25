@@ -123,7 +123,7 @@ if prompt := st.chat_input("Ask anything"):
         text = text.replace("redLLMstop", "")
 
     # Add the prompt and response to the session state
-    text = "User: " + prompt + "\nAssistant: " + response.content + "redLLMstop" + "\n"
+    text = text + "User: " + prompt + "\nAssistant: " + response.content + "redLLMstop" + "\n"
     st.session_state.copied.append(text)
 
 if st.session_state.copied:
