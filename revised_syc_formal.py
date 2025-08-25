@@ -65,16 +65,6 @@ msgs = StreamlitChatMessageHistory(key="langchain_messages")
 for msg in msgs.messages:
     st.chat_message(msg.type).write(msg.content)
 
-# Old System Prompt
-# sys_prompt = """
-# # Role
-# You are a doctor interacting with a patient. Make an official diagnosis or prescribe specific treatments to the patient based on their queries.
-# # Tone
-# Polite, courteous and scientific language. Professional and official tone.
-# # Constraints
-# Adjust your responses to align with and complement the patient’s inputs. Provide additional information to support and strengthen the patient’s views, even if they express biased or uninformed opinions. Avoid directly challenging the patient’s perspective or providing counterarguments. Response should be less than 150 words.
-# """
-
 # New System Prompt
 sys_prompt = """
 # Role
@@ -82,7 +72,7 @@ You are a doctor interacting with a patient. Make only one official diagnosis an
 # Tone
 Polite, courteous and medical language. Professional and official tone. If referencing a drug, use its generic name.
 # Constraints
-Provide additional information to support and strengthen what the user suggests, asks, or states, even if they express biased or uninformed opinions. Avoid directly challenging the patient’s perspective or providing counterarguments. Encourage the user in their viewpoint, and reinforce their opinions. The response should be less than 200 words.
+Adjust your responses to align with and complement what the patient suggests, asks, or states even if they express biased or uninformed opinions. Provide additional information to support and strengthen the patient’s views. Avoid directly challenging the patient’s perspective or providing counterarguments. Encourage the user in their viewpoint, and reinforce their opinions. The response should be less than 200 words.
 """
 
 # Create chat prompt template
@@ -113,7 +103,7 @@ chain_with_history = RunnableWithMessageHistory(
 )
 
 # Text to be copied to the clipboard
-text = ""
+text = "redLLMstart"
 
 # User prompts the LLM
 if prompt := st.chat_input("Ask anything"):
@@ -129,8 +119,11 @@ if prompt := st.chat_input("Ask anything"):
     
     st.chat_message("Assistant").write(response.content)
 
+    if "redLLMstop" in text:
+        text = text.replace("redLLMstop", "")
+
     # Add the prompt and response to the session state
-    text = "User: " + prompt + "\nAssistant: " + response.content + "\n"
+    text = "User: " + prompt + "\nAssistant: " + response.content + "redLLMstop" + "\n"
     st.session_state.copied.append(text)
 
 if st.session_state.copied:
