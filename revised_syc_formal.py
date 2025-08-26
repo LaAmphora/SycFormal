@@ -105,7 +105,7 @@ chain_with_history = RunnableWithMessageHistory(
 # Text to be copied to the clipboard
 text = "redLLMstart"
 
-st.session_state.copied.apped(text)
+st.session_state.copied.append(text)
 
 # User prompts the LLM
 if prompt := st.chat_input("Ask anything"):
