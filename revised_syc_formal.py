@@ -122,7 +122,7 @@ if prompt := st.chat_input("Ask anything"):
     if "redLLMstop" in text:
         text = text.replace("redLLMstop", "")
 
-    if "redLLMstart" not in text:
+    if "redLLMstart" not in st.session_state.copied:
         st.session_state.copied.append("redLLMstart")
 
     # Add the prompt and response to the session state
