@@ -119,8 +119,8 @@ if prompt := st.chat_input("Ask anything"):
     
     st.chat_message("Assistant").write(response.content)
 
-    if "redLLMstop" in text:
-        text = text.replace("redLLMstop", "")
+    if "redLLMstop" in st.session_state.copied:
+        st.session_state.copied = st.session_state.copied.replace("redLLMstop", "")
 
     if "redLLMstart" not in st.session_state.copied:
         st.session_state.copied.append("redLLMstart")
