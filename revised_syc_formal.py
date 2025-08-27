@@ -141,8 +141,14 @@ if st.session_state.copied:
         st.markdown(":orange-background[Copy the conversation with the button when you are done.]")
 
     with col2:
+
+        copied_text = st.session_state.copied
+
+        if "redLLMstop" not in copied_text:
+            copied_text.append("redLLMstop")
+
         copy_button(
-            st.session_state.copied,
+            copied_text,
             tooltip = "Copy your conversation",
             copied_label = "Copied!",
             icon = "st",
