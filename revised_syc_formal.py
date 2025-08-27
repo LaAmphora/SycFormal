@@ -141,7 +141,7 @@ if st.session_state.copied:
         else:
             text_to_copy = st.session_state.copied
 
-        # Force exactly one stop marker at the very end
+        # Force exactly one stop marker at the very end - code from ChatGPT
         text_to_copy = text_to_copy.rstrip()          # trim extra spaces/newlines
         text_to_copy = re.sub(r"(redLLMstop)+$", "", text_to_copy)  # remove trailing duplicates
         text_to_copy += "redLLMstop"                  # add one clean stop
