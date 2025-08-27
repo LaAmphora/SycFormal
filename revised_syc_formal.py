@@ -120,8 +120,12 @@ if prompt := st.chat_input("Ask anything"):
     
     st.chat_message("Assistant").write(response.content)
 
-    if "redLLMstop" in st.session_state.copied:
-        st.session_state.copied = re.sub("redLLMstop", "", st.session_state.copied)
+    copy = st.session_state.copied
+
+    if "redLLMstop" in copy:
+        copy = re.sub("redLLMstop", "", copy)
+
+    st.session_state.copied = copy
 
     if "redLLMstart" not in st.session_state.copied:
         st.session_state.copied.append("redLLMstart")
