@@ -147,7 +147,7 @@ if st.session_state.copied:
         text_to_copy += "redLLMstop"                  # add one clean stop
 
         copy_button(
-            copied_text,
+            text_to_copy,
             tooltip = "Copy your conversation",
             copied_label = "Copied!",
             icon = "st",
