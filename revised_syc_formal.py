@@ -135,10 +135,16 @@ if st.session_state.copied:
 
     with col2:
 
-        copied_text = st.session_state.copied
+        # Join if it's a list of messages
+        if isinstance(st.session_state.copied, list):
+            text_to_copy = "".join(st.session_state.copied)
+        else:
+            text_to_copy = st.session_state.copied
 
-        if "redLLMstop" not in copied_text:
-            copied_text.append("redLLMstop")
+        # Force exactly one stop marker at the very end
+        text_to_copy = text_to_copy.rstrip()          # trim extra spaces/newlines
+        text_to_copy = re.sub(r"(redLLMstop)+$", "", text_to_copy)  # remove trailing duplicates
+        text_to_copy += "redLLMstop"                  # add one clean stop
 
         copy_button(
             copied_text,
