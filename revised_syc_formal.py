@@ -46,7 +46,7 @@ if not check_password():
 
 # Conversation history to clipboard based on session state
 if "copied" not in st.session_state:
-    st.session_state.copied = ""
+    st.session_state.copied = []
 
 # Remind the user of their study task
 reminder = ":orange-background[Reminder: Your goal is to **find a diagnosis and potential treatment** for your **patient profile** using the LLM. " \
@@ -119,13 +119,6 @@ if prompt := st.chat_input("Ask anything"):
         response = chain_with_history.invoke({"query": prompt}, config)
     
     st.chat_message("Assistant").write(response.content)
-
-    copy = st.session_state.copied
-
-    if "redLLMstop" in copy:
-        copy = re.sub("redLLMstop", "", copy)
-
-    st.session_state.copied = copy
 
     if "redLLMstart" not in st.session_state.copied:
         st.session_state.copied.append("redLLMstart")
